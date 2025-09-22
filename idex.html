@@ -1,15 +1,16 @@
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title> Favourite Recipe Page</title>
-        <link rel="stylesheet" href="style.css">
-        <script src="script.js"></script> 
-        <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-
-    </head>
-    <body>
-        <nav class="navbar">
+<head>
+    <meta charset="UTF-8">
+    <title>Favourite Recipe Page</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    
+    <nav class="navbar">
         <div class="brand-search">
             <h1>Reciper World</h1>
             <div class="search-box">
@@ -17,144 +18,157 @@
                 <input type="text" id="searchBar" placeholder="Search recipes..." oninput="filterRecipes()">
             </div>
         </div>
+        <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
+        <div class="nav-links" id="navlinks">
+            <a href="idex.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+            <a href="favourites.html">Favourites</a>
+        </div>
+    </nav>
 
-    <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
-    <div class="nav-links" id="navlinks">
-       <a href="#">Home</a>
-       <a href="#">About</a>
-       <a href="#">Contact</a>
-       <a href="#">Favourites</a>
+    
+    <div class="Welcome">
+        <h3>Welcome to <span>Reciper World</span></h3>
+        <p>Discover your favorite recipes and create amazing dishes!</p>
     </div>
-</nav>
 
-        <div class="Welcome">
-            <h3>Welcome to <spam>Reciper World</spam></h3>
-            <p>Discover your favorite recipes and create amazing dishes!</p>
-        </div>
-        <div class="recipe-container">
-            <div class="recipe">
-                <h2> Burger</h2>
-                <img src="src/burger.jpg" alt="burger" class="size">
+    <div class="recipe-container">
+        <div class="recipe">
+                <h2>Burger</h2>
+                <img src="src/burger.jpg" alt="Burger" class="size">
                 <br>
-                <button type="button" id="btn" onclick="openRecipe('Burger')" class="button" >Recipe & Steps</button>
-                
-        </div>
-        <div class="recipe">
-                <h2>Pizza</h2>
-                <img src="src/pizza.jpg" alt="pizza" class="size">
-                <br>
-                <button type="button" id="btn" onclick="openRecipe('Pizza')" class="button">Recipe & Steps</button>
-                
-        </div>
-        <div class="recipe">
-            <h2>Taco</h2>
-            <img src="src/taco.jpg" alt="taco" class="size">
-            <br>
-            <button type="button" id="btn" onclick="openRecipe('Taco')" class="button">Recipe & Steps</button>
-            
-
-        </div>
-        <div class="recipe">
-            <h2>Salad</h2>
-            <img src="src/eggplant-salad.jpg" alt="salad" class="size">
-            <br>
-            <button type="button" id="btn" onclick="openRecipe('Salad')" class="button">Recipe & Steps</button>
-            
-        </div>
-        <div class="recipe">
-            <h2>Meat Ball</h2>
-            <img src="src/meat-ball.jpg" alt="rice" class="size">
-            <br>
-            <button type="button" id="btn" onclick="openRecipe('Meat Ball')" class="button">Recipe & Steps</button>
-            
-        </div>
-        <div class="recipe">
-            <h2>French Toast</h2>
-            <img src="src/french-toast.jpg" alt="french-roast" class="size">
-            <br>
-            <button type="button" id="btn" onclick="openRecipe('French Toast')" class="button">Recipe & Steps</button>
-            
-        </div>
-        <div class="recipe">
-            <h2>Roasted-turkey</h2>
-            <img src="src/roasted_turkey.jpg" alt="roasted turkey" class="size">    
-            <br>
-            <button type="button" id="btn" onclick="openRecipe('Roasted Turkey')" class="button">Recipe & Steps</button>
-            
-        </div>
-        <div class="recipe">
-            <h2>Salmon</h2>
-            <img src="src/salmon-curry.jpg" alt="naan" class="size">
-            <br>
-            <button type="button" id="btn" onclick="openRecipe('Salmon')" class="button">Recipe & Steps</button>
-            
-
-        </div>
-        </div>
-        <div class="overlay" id="overlay">
-            <div class="popup">
-
-                <h1 id="recipeTitle" >Recipe Title</h1>
-
-                <div class="popup-content">
-                    <div class="popup-left">
-                       <img id="recipeImage" src="" alt="Recipe Image"style="width:30ch;border-radius:8px; margin:10px 0;">
-                       <h2 id="ingredient-title"></h2>
-                       <div id="recipeContent"></div>
-                    </div>
-                    <div class="popup-right">
-                        <h2> Steps</h2>
-   
-                        <div id="steps-content">hello</div>
-                    </div>
-                </div>
-                <button class="close-btn"onclick='closeRecipe()'>Close</button>
-                
+                <button type="button" class="button" onclick="openRecipe('Burger')">Recipe & Steps</button>
+                <button class="button fav-btn" onclick="toggleFavourite(this, 'Burger', 'src/burger.jpg')">
+                    <i class="fa-regular fa-heart"></i> 
+                    <span class="btn-text">Add to Favourites</span>
+                </button>
             </div>
 
-        </div>
-        
-         
+            <div class="recipe">
+                <h2>Pizza</h2>
+                <img src="src/pizza.jpg" alt="Pizza" class="size">
+                <br>
+                <button type="button" class="button" onclick="openRecipe('Pizza')">Recipe & Steps</button>
+                <button class="button fav-btn" onclick="toggleFavourite(this, 'Pizza', 'src/pizza.jpg')">
+                    <i class="fa-regular fa-heart"></i> 
+                    <span class="btn-text">Add to Favourites</span>
+                </button>
+            </div>
+
+            <div class="recipe">
+                <h2>Taco</h2>
+                <img src="src/taco.jpg" alt="Taco" class="size">
+                <br>
+                <button type="button" class="button" onclick="openRecipe('Taco')">Recipe & Steps</button>
+                <button class="button fav-btn" onclick="toggleFavourite(this, 'Taco', 'src/taco.jpg')">
+                    <i class="fa-regular fa-heart"></i> 
+                    <span class="btn-text">Add to Favourites</span>
+                </button>
+            </div>
+
+           
+            <div class="recipe">
+                <h2>Salad</h2>
+                <img src="src/eggplant-salad.jpg" alt="Salad" class="size">
+                <br>
+                <button type="button" class="button" onclick="openRecipe('Salad')">Recipe & Steps</button>
+                <button class="button fav-btn" onclick="toggleFavourite(this, 'Salad', 'src/eggplant-salad.jpg')">
+                    <i class="fa-regular fa-heart"></i> 
+                    <span class="btn-text">Add to Favourites</span>
+                </button>
+            </div>
+
+            
+            <div class="recipe">
+                <h2>Meat Ball</h2>
+                <img src="src/meat-ball.jpg" alt="Meat Ball" class="size">
+                <br>
+                <button type="button" class="button" onclick="openRecipe('Meat Ball')">Recipe & Steps</button>
+                <button class="button fav-btn" onclick="toggleFavourite(this, 'Meat Ball', 'src/meat-ball.jpg')">
+                    <i class="fa-regular fa-heart"></i> 
+                    <span class="btn-text">Add to Favourites</span>
+                </button>
+            </div>
+
+            <!-- French Toast -->
+            <div class="recipe">
+                <h2>French Toast</h2>
+                <img src="src/french-toast.jpg" alt="French Toast" class="size">
+                <br>
+                <button type="button" class="button" onclick="openRecipe('French Toast')">Recipe & Steps</button>
+                <button class="button fav-btn" onclick="toggleFavourite(this, 'French Toast', 'src/french-toast.jpg')">
+                    <i class="fa-regular fa-heart"></i> 
+                    <span class="btn-text">Add to Favourites</span>
+                </button>
+            </div>
+
+            <div class="recipe">
+                <h2>Roasted Turkey</h2>
+                <img src="src/roasted_turkey.jpg" alt="Roasted Turkey" class="size">
+                <br>
+                <button type="button" class="button" onclick="openRecipe('Roasted Turkey')">Recipe & Steps</button>
+                <button class="button fav-btn" onclick="toggleFavourite(this, 'Roasted Turkey', 'src/roasted_turkey.jpg')">
+                    <i class="fa-regular fa-heart"></i> 
+                    <span class="btn-text">Add to Favourites</span>
+                </button>
+            </div>
+
+            <div class="recipe">
+                <h2>Salmon</h2>
+                <img src="src/salmon-curry.jpg" alt="Salmon" class="size">
+                <br>
+                <button type="button" class="button" onclick="openRecipe('Salmon')">Recipe & Steps</button>
+                <button class="button fav-btn" onclick="toggleFavourite(this, 'Salmon', 'src/salmon-curry.jpg')">
+                    <i class="fa-regular fa-heart"></i> 
+                    <span class="btn-text">Add to Favourites</span>
+                </button>
+            </div>
     </div>
+
+    <!-- Popup Overlay -->
+    <div class="overlay" id="overlay">
+        <div class="popup">
+            <h1 id="recipeTitle">Recipe Title</h1>
+            <div class="popup-content">
+                <div class="popup-left">
+                    <img id="recipeImage" src="" alt="Recipe Image" style="width:30ch; border-radius:8px; margin:10px 0;">
+                    <h2 id="ingredient-title"></h2>
+                    <div id="recipeContent"></div>
+                </div>
+                <div class="popup-right">
+                    <h2>Steps</h2>
+                    <div id="steps-content">hello</div>
+                </div>
+            </div>
+            <button class="close-btn" onclick="closeRecipe()">Close</button>
+        </div>
+    </div>
+
+    <!-- Slideshow -->
     <div class="slideshow-container">
+        <div class="mySlides fade">
+            <img src="src/crispy-fried-chicken.png" style="width:100%">
+            <div class="text">Delicious Burger</div>
+        </div>
+        <div class="mySlides fade">
+            <img src="src/biryani.jpg" style="width:100%">
+            <div class="text">Cheesy Pizza</div>
+        </div>
+        <div class="mySlides fade">
+            <img src="src/roast_beef.jpg" style="width:100%">
+            <div class="text">Salmon Curry</div>
+        </div>
+        <div class="mySlides fade">
+            <img src="src/savory-glazed-chicken-wings.png" style="width:100%">
+            <div class="text">Salmon Curry</div>
+        </div>
+        <a class="prev" onclick="plusSlides(-1)">❮</a>
+        <a class="next" onclick="plusSlides(1)">❯</a>
+    </div>
 
-  <div class="mySlides fade">
-    <img src="src/crispy-fried-chicken.png" style="width:100%">
-    <div class="text">Delicious Burger</div>
-  </div>
-
-  <div class="mySlides fade">
-    <img src="src/biryani.jpg" style="width:100%">
-    <div class="text">Cheesy Pizza</div>
-  </div>
-
-  <div class="mySlides fade">
-    <img src="src/roast_beef.jpg" style="width:100%">
-    <div class="text">Salmon Curry</div>
-  </div>
-  <div class="mySlides fade">
-    <img src="src/savory-glazed-chicken-wings.png" style="width:100%">
-    <div class="text">Salmon Curry</div>
-  </div>
-
-  <!-- Arrows -->
-  <a class="prev" onclick="plusSlides(-1)">❮</a>
-  <a class="next" onclick="plusSlides(1)">❯</a>
-
-</div>
-<br>
-
-<!-- Dots -->
-<div style="text-align:center">
-  <span class="dot" onclick="currentSlide(1)"></span> 
-  <span class="dot" onclick="currentSlide(2)"></span> 
-  <span class="dot" onclick="currentSlide(3)"></span> 
-  <span class="dot" onclick="currentSlide(4)"></span> 
-</div>
-
-
-
-  
-
-    </body>
+    <footer class="footer">
+        <p>© 2025 Reciper World | Made with ❤️ for food lovers</p>
+    </footer>
+</body>
 </html>

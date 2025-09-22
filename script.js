@@ -84,8 +84,6 @@ const recipes = {
 
 
 
- 
-
 function openRecipe(recipekey){
      const recipe=recipes[recipekey]
      const Title=document.getElementById("recipeTitle");
@@ -147,13 +145,12 @@ function toggleMenu(){
      const nav =document.getElementById('navlinks');
      nav.classList.toggle('show');
 }
-let slideIndex = 0;   // start before first slide
+let slideIndex = 0;   
 let slideTimer;
 
 function showSlidesAuto() {
   let i;
   let slides = document.getElementsByClassName("mySlides");
-  let dots = document.getElementsByClassName("dot");
 
   for (i = 0; i < slides.length; i++) {
     slides[i].style.display = "none";  
@@ -162,12 +159,8 @@ function showSlidesAuto() {
   slideIndex++;
   if (slideIndex > slides.length) { slideIndex = 1 }    
 
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-
   slides[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " active";
+  
 
   slideTimer = setTimeout(showSlidesAuto, 3000); // Auto-change every 3 sec
 }
@@ -184,5 +177,111 @@ function currentSlide(n) {
   showSlidesAuto();
 }
 
-// ✅ Start slideshow immediately on page load
+// slideshow 
 document.addEventListener("DOMContentLoaded", showSlidesAuto);
+
+const STORAGE_KEY="favourites";
+
+function getFavourite(){
+  return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+}
+
+function saveFavourites(arr){
+  localStorage.setItem(STORAGE_KEY,JSON.stringify(arr));
+}
+//
+
+function isFavourite(title){
+  return getFavourite().some(r=>r.title===title);
+}
+
+function addFavourite(title,image){
+  const favs=getFavourite();
+  if (!favs.some(r=>r.title===title)){
+    favs.push({title,image});
+    saveFavourites(favs);
+    return true;
+  }
+  return false;
+}
+
+function removeFavourite(title){
+  const favs=getFavourite();
+  const updated=favs.filter(r=>r.title!==title);
+  saveFavourites(updated);
+}
+
+
+
+
+function renderFavourites() {
+  const container = document.getElementById("favouritesContainer");
+  if (!container) return;
+
+  container.innerHTML = ""; 
+  const favs = getFavourite(); 
+
+  if (favs.length === 0) {
+    container.innerHTML = "<p>No favourites yet! ❤️ Add some from Home.</p>";
+    return;
+  }
+
+  favs.forEach(fav => {
+    const card = document.createElement("div");
+    card.className = "recipe";
+
+    card.innerHTML = `
+  <h2 id="recipetitle" >${fav.title}</h2>
+  <img src="${fav.image}" alt="${fav.title}" class="size">
+  <div class="button-row">
+    <button type="button" class="button" onclick="openRecipe('${fav.title}')">
+      Recipe & Steps
+    </button>
+    <button type="button" class="button remove-btn" onclick="removeFavouriteAndRender('${fav.title}')">
+      <i class="fa-solid fa-trash"></i> Remove
+    </button>
+  </div>
+`;
+
+
+    container.appendChild(card);
+  });
+}
+
+
+// Helper: remove and refresh list
+function removeFavouriteAndRender(title) {
+  removeFavourite(title);
+  renderFavourites();
+}
+
+// Load favourites when page is ready
+document.addEventListener("DOMContentLoaded", renderFavourites);
+
+
+function toggleFavourite(button,title,image){
+  let favs=getFavourite();
+  const index=favs.findIndex(item=>item.title===title);
+  const icon=button.querySelector("i");
+  const text=button.querySelector(".btn-text");
+
+  if(index===-1){
+    favs.push({title,image});
+    saveFavourites(favs);
+    icon.classList.remove("fa-regular");
+    icon.classList.add("fa-solid");
+    icon.style.color="red";
+    text.textContent="Add to Favourites";
+  }
+  else{
+    favs.splice(index,1);
+    saveFavourites(favs);
+    icon.classList.remove("fa-solid");
+    icon.classList.add("fa-regular");
+    icon.style.color="";
+    text.textContent="Add to Favourites";
+
+  }
+
+  
+}
